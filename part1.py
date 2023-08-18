@@ -5,6 +5,8 @@ from mesa.time import RandomActivation
 from mesa.visualization.modules import CanvasGrid
 from mesa.visualization.ModularVisualization import ModularServer
 
+from mesa.visualization.UserParam import Slider
+
 class Tree(Agent): #En esta clase se definen los posibles estados en los que puede estra un arbol 
     FINE = 0 
     BURNING = 1
@@ -21,7 +23,7 @@ class Tree(Agent): #En esta clase se definen los posibles estados en los que pue
             self.condition = self.BURNED_OUT #cambia su propia condicion a BURNED OUT
 
 class Forest(Model): #La clase Forest hereda de Model y representa el entorno en el que se desarrolla la simulacion
-    def __init__(self, height=50, width=50, density=0.70): #En este metodo se establece la configuracion inicial del bosque con altura, ancho y densidad.
+    def __init__(self, height=50, width=50, density=0.20): #En este metodo se establece la configuracion inicial del bosque con altura, ancho y densidad.
         super().__init__()
         self.schedule = RandomActivation(self)
         self.grid = SingleGrid(height, width, torus=False)
@@ -49,7 +51,10 @@ def agent_portrayal(agent): #esta funcion define como se representaran visualmen
     return portrayal
 
 grid = CanvasGrid(agent_portrayal, 50, 50, 450, 450) #Se crea una cuadricula visual que mostrara la simulacion.
-server = ModularServer(Forest, [grid], "Forest", {}) 
+server = ModularServer(Forest, [grid], "Forest", {
+     "density": Slider("Tree density", 0.45, 0.01, 1.0, 0.01),
+     "width":50, "height":50
+ }) 
 
 server.port = 8522 # The default
 server.launch()
