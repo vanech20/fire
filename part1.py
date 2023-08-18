@@ -21,7 +21,7 @@ class Tree(Agent): #En esta clase se definen los posibles estados en los que pue
             self.condition = self.BURNED_OUT #cambia su propia condicion a BURNED OUT
 
 class Forest(Model): #La clase Forest hereda de Model y representa el entorno en el que se desarrolla la simulacion
-    def __init__(self, height=50, width=50, density=0.45): #En este metodo se establece la configuracion inicial del bosque con altura, ancho y densidad.
+    def __init__(self, height=50, width=50, density=0.70): #En este metodo se establece la configuracion inicial del bosque con altura, ancho y densidad.
         super().__init__()
         self.schedule = RandomActivation(self)
         self.grid = SingleGrid(height, width, torus=False)
